@@ -1,21 +1,25 @@
 " Plugins ---{{{
 " " PlugUpdate
 call plug#begin('~/.vim/plugged')
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'preservim/nerdtree'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'thoughtbot/vim-rspec'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
-Plug 'slim-template/vim-slim'
-Plug 'vifm/vifm'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-bundler'
+Plug 'tpope/vim-commentary'
 Plug 'vim-ruby/vim-ruby'
+Plug 'thoughtbot/vim-rspec'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'preservim/nerdtree'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'dense-analysis/ale'
+Plug 'vifm/vifm'
 Plug 'Raimondi/delimitMate'
 Plug 'dense-analysis/ale'
 Plug 'jiangmiao/auto-pairs'
+Plug 'airblade/vim-gitgutter'
 Plug 'godlygeek/tabular'
 Plug 'github/copilot.vim'
 Plug 'tomasr/molokai'
@@ -51,7 +55,6 @@ set termwinsize=12x0 " Set terminal size
 set splitbelow " Always split below
 set mouse=a
 set number
-
 " Write swp files to /tmp instead of current directory
 set swapfile
 set dir=/tmp
@@ -64,7 +67,7 @@ set textwidth=100
 set noshowmode
 
 " Ale (Linting)
-let b:ale_fixers = {'ruby': ['standardrb'], 'rust': ['rustfmt']}
+let b:ale_fixers = {'ruby': ['rubocop', 'standardrb'], 'rust': ['rustfmt'], '*': ['remove_trailing_lines', 'trim_whitespace']}
 let g:ale_fix_on_save = 1
 let g:ale_sign_error = '>>'
 
@@ -130,3 +133,7 @@ let NERDTreeWinSize = 31        " Set panel width to 31 columns
 " Ruby
 " Set the Ruby filetype for a number of common Ruby files without .rb
 au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,Procfile,Guardfile,config.ru,*.rake} set ft=ruby
+
+"Autocommands ----{{{
+  autocmd VimResized * :wincmd =
+"}}}
