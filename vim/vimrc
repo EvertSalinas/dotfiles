@@ -12,9 +12,10 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'thoughtbot/vim-rspec'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'preservim/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'ryanoasis/vim-devicons'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'dense-analysis/ale'
 Plug 'vifm/vifm'
 Plug 'Raimondi/delimitMate'
 Plug 'dense-analysis/ale'
@@ -51,13 +52,13 @@ set shiftwidth=4
 set expandtab
 set incsearch " Enable incremental search
 set hlsearch " Enable highlight search
-set termwinsize=12x0 " Set terminal size
 set splitbelow " Always split below
 set mouse=a
 set number
 " Write swp files to /tmp instead of current directory
 set swapfile
 set dir=/tmp
+set encoding=UTF-8
 
 " Make it obvious where 100 characters is
 " highlight ColorColumn ctermbg=18
@@ -67,7 +68,7 @@ set textwidth=100
 set noshowmode
 
 " Ale (Linting)
-let b:ale_fixers = {'ruby': ['rubocop', 'standardrb'], 'rust': ['rustfmt'], '*': ['remove_trailing_lines', 'trim_whitespace']}
+let b:ale_fixers = {'ruby': ['standardrb'], 'rust': ['rustfmt'], '*': ['remove_trailing_lines', 'trim_whitespace']}
 let g:ale_fix_on_save = 1
 let g:ale_sign_error = '>>'
 
@@ -83,7 +84,7 @@ map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
 
 " Colorscheme
-syntax enable
+syntax on
 colorscheme molokai
 
 hi LineNr          ctermfg=250 ctermbg=234
@@ -137,3 +138,4 @@ au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,Procfile,Guardfile,
 "Autocommands ----{{{
   autocmd VimResized * :wincmd =
 "}}}
+
