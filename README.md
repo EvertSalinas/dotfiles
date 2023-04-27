@@ -9,13 +9,13 @@
 - fzf is a general-purpose command-line fuzzy finder.
 
 ### Apps
-- (Todoist)[https://todoist.com/app/today] Task manager and to-do list app
+- [Todoist](https://todoist.com/app/today) Task manager and to-do list app
 - Zoom
 - Dashlane
 
 ### Productivity Tools
-- (Raycast)[https://www.raycast.com/] Launcher, search... substitutes spotlight in macbooks.
-- (Magnets)[] Mac windows manager
+- [Raycast](https://www.raycast.com/) Launcher, search... substitutes spotlight in macbooks.
+- [Magnets]() Mac windows manager
 
 ## VIM
 ### Plugins
