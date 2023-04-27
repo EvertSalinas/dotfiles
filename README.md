@@ -19,3 +19,7 @@
 
 ## VIM
 ### Plugins
+
+## Local Setup
+- Redis in docker
+- postgres in docker
