@@ -10,7 +10,7 @@
 - bat (cat with wings)
 
 ## Productivity Tools
-- **To-do app: ** Todoist
+- **To-do app:** Todoist
 - **Note taking:** Obsidian
 
 # Languages
