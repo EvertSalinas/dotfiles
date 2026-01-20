@@ -9,7 +9,9 @@ fi
 alias zshconfig="nvim ~/.zshrc"
 alias ohmyzsh="nvim ~/.oh-my-zsh"
 alias vimconfig="nvim ~/.vimrc"
+alias tmuxconfig="nvim ~/.tmux.conf"
 alias ls="command ls ${colorflag}"
+alias cl="clear"
 
 # Quicker navigation
 alias ..="cd .."
@@ -46,6 +48,12 @@ alias credentials='EDITOR="nvim" rails credentials:edit'
 # Vim
 alias vim=nvim
 
+# Aws k9s
+alias awslogin="aws sso login --profile sso"
+alias kcontextqa="kubectl config use-context qa-002-1-33-cluster"
+alias kcontextint="kubectl config use-context integration-002-1-33-cluster"
+alias kcontextprod="kubectl config use-context prod-use1-001-1-30-cluster"
+
 # Git Autocomplete
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
@@ -74,13 +82,16 @@ export CPPFLAGS="-I/opt/homebrew/opt/imagemagick@6/include:$CPPFLAGS"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/imagemagick@6/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PATH="/opt/homebrew/opt/imagemagick@6/bin:$PATH"
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
+
 
 # asdf
 . "/opt/homebrew/opt/asdf/libexec/asdf.sh"
-. "/opt/homebrew/opt/asdf/etc/bash_completion.d/asdf.bash"
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 
 # Plugins
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+export PATH="$HOME/.local/bin:$PATH"
