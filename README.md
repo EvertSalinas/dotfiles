@@ -1,4 +1,4 @@
-# Dotfiles
+# Evert's Dotfiles
 
 A collection of configuration files and setups for my development environment on macOS.
 
