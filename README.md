@@ -10,7 +10,6 @@ A collection of configuration files and setups for my development environment on
 - **Features:**
   - Instant prompt for speed.
   - Custom aliases for navigation and quick config editing (`zshconfig`, `tmuxconfig`).
-  - Integration with standard tools (ls colors, etc.).
 
 ### Editor: Neovim
 - **Configuration Directory:** `nvim_backup/`
@@ -30,14 +29,8 @@ A collection of configuration files and setups for my development environment on
   - **Prefix:** `C-s` (remapped from `C-b`).
   - **Keybindings:** Vim-like pane navigation (`h`, `j`, `k`, `l`) and resizing.
   - **Reload:** Quick config reload with `r`.
-- **Tmuxinator:** `tmuxinator_backup/`
-  - Pre-configured layouts for projects:
-    - `auth-service`
-    - `communications-backend`
-    - `navigate-backend`
-    - `navigate-frontend`
-    - `rooms-backend`
-    - `thrillshare`
+- **Tmuxinator**
+
 
 ## 📂 Repository Structure
 
@@ -45,7 +38,6 @@ A collection of configuration files and setups for my development environment on
 .
 ├── alacritty_backup/   # Alacritty terminal configuration and themes
 ├── nvim_backup/        # Neovim lua configuration
-├── tmuxinator_backup/  # Tmuxinator project layouts
 ├── tmux.conf_backup    # Tmux configuration file
 ├── zshrc_backup        # Zsh shell configuration
 └── README.md
@@ -75,12 +67,6 @@ cp -r alacritty_backup/* ~/.config/alacritty/
 ```bash
 mkdir -p ~/.config/nvim
 cp -r nvim_backup/* ~/.config/nvim/
-```
-
-### Tmuxinator
-```bash
-mkdir -p ~/.config/tmuxinator
-cp tmuxinator_backup/*.yml ~/.config/tmuxinator/
 ```
 
 ## 📦 Additional Tooling
