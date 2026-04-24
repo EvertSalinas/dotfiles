@@ -51,7 +51,7 @@ alias vim=nvim
 alias awslogin="aws sso login --profile sso"
 alias kcontextqa="kubectl config use-context qa-002-1-33-cluster"
 alias kcontextint="kubectl config use-context integration-002-1-33-cluster"
-alias kcontextprod="kubectl config use-context prod-use1-001-1-30-cluster"
+alias kcontextprod="kubectl config use-context prod-use1-001-1-33-cluster"
 
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
@@ -79,7 +79,9 @@ if [[ "$(uname)" == "Darwin" ]]; then
   export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
   export PATH="/opt/homebrew/opt/imagemagick@6/bin:$PATH"
   export CFLAGS="-I/opt/homebrew/opt/imagemagick\@6/include/ImageMagick-6:$CFLAGS"
-  export CPPFLAGS="-I/opt/homebrew/opt/imagemagick@6/include:$CPPFLAGS"
+  export CPPFLAGS="-I$(brew --prefix zlib)/include -I/opt/homebrew/opt/imagemagick@6/include:$CPPFLAGS"
+  # Don't use $LDFLAGS here: it can contain -L/lib which breaks Ruby's configure (asdf install ruby).
+  export LDFLAGS="-L$(brew --prefix zlib)/lib"
   export PKG_CONFIG_PATH="/opt/homebrew/opt/imagemagick@6/lib/pkgconfig:$PKG_CONFIG_PATH"
   export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
   . "/opt/homebrew/opt/asdf/libexec/asdf.sh"
@@ -92,3 +94,5 @@ else
 fi
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+eval "$(direnv hook zsh)"
