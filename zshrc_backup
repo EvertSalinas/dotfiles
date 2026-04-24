@@ -1,32 +1,32 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Example aliases
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME=""
+plugins=(git)
+source $ZSH/oh-my-zsh.sh
+
 alias zshconfig="nvim ~/.zshrc"
 alias ohmyzsh="nvim ~/.oh-my-zsh"
 alias vimconfig="nvim ~/.vimrc"
-alias tmuxconfig="nvim ~/.tmux.conf"
+alias tmuxconfig="nvim ~/.config/tmux/tmux.conf"
 alias ls="command ls ${colorflag}"
 alias cl="clear"
 
-# Quicker navigation
+# Navigation
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
-# tmuxinator shorthand
 alias mux=tmuxinator
 
-# Git aliases
-# You must install Git first
+# Git
 alias gsw='git switch'
 alias gs='git status'
-alias gc='git commit -m' # requires you to type a commit message
+alias gc='git commit -m'
 alias gp='git push'
 alias grm='git rm $(git ls-files --deleted)'
 alias gpr='git pull --rebase'
@@ -45,53 +45,50 @@ alias gstart='gk main && git pull && gk -b '
 alias rwvs='bundle exec rspec --exclude-pattern "**/views/*_spec.rb"'
 alias credentials='EDITOR="nvim" rails credentials:edit'
 
-# Vim
 alias vim=nvim
 
-# Aws k9s
+# AWS / k8s
 alias awslogin="aws sso login --profile sso"
 alias kcontextqa="kubectl config use-context qa-002-1-33-cluster"
 alias kcontextint="kubectl config use-context integration-002-1-33-cluster"
 alias kcontextprod="kubectl config use-context prod-use1-001-1-30-cluster"
 
-# Git Autocomplete
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
 fi
 
-export PATH="$HOME/Code/dotfiles/bin:$PATH";
+export PATH="$HOME/Code/dotfiles/bin:$PATH"
 export PATH=/usr/local/bin:$PATH
-export PATH="/usr.local/bin/python3:$PATH"
-export PATH="/opt/homebrew/opt/openssl@1.1/bin:$PATH"
+export PATH="/usr/local/bin/python3:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 export EDITOR='nvim'
 export UID=$(id -u)
 export GID=$(id -g)
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-[[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh  # This loads NVM
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export GPG_TTY=$(tty)
+export TERM=xterm-256color
 
-# Homebrew
-export HOMEBREW_OPT="/opt/homebrew/opt"
-export CFLAGS="-I/opt/homebrew/opt/imagemagick\@6/include/ImageMagick-6:$CFLAGS"
-export CPPFLAGS="-I/opt/homebrew/opt/imagemagick@6/include:$CPPFLAGS"
-export PKG_CONFIG_PATH="/opt/homebrew/opt/imagemagick@6/lib/pkgconfig:$PKG_CONFIG_PATH"
-export PATH="/opt/homebrew/opt/imagemagick@6/bin:$PATH"
-export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
-export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
+# NVM
+[[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
+if [[ "$(uname)" == "Darwin" ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+  export HOMEBREW_OPT="/opt/homebrew/opt"
+  export PATH="/opt/homebrew/opt/openssl@1.1/bin:$PATH"
+  export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
+  export PATH="/opt/homebrew/opt/imagemagick@6/bin:$PATH"
+  export CFLAGS="-I/opt/homebrew/opt/imagemagick\@6/include/ImageMagick-6:$CFLAGS"
+  export CPPFLAGS="-I/opt/homebrew/opt/imagemagick@6/include:$CPPFLAGS"
+  export PKG_CONFIG_PATH="/opt/homebrew/opt/imagemagick@6/lib/pkgconfig:$PKG_CONFIG_PATH"
+  export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+  . "/opt/homebrew/opt/asdf/libexec/asdf.sh"
+  source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
+  source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+else
+  [[ -s "$HOME/.asdf/asdf.sh" ]] && . "$HOME/.asdf/asdf.sh"
+  [[ -f ~/.local/share/powerlevel10k/powerlevel10k.zsh-theme ]] && source ~/.local/share/powerlevel10k/powerlevel10k.zsh-theme
+  [[ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
 
-# asdf
-. "/opt/homebrew/opt/asdf/libexec/asdf.sh"
-
-eval "$(/opt/homebrew/bin/brew shellenv)"
-source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
-
-# Plugins
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-export PATH="$HOME/.local/bin:$PATH"
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
