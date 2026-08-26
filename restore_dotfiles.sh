@@ -6,7 +6,7 @@ BACKUP_DIR="$DOTFILES/pre_restore_backup/$(date +%Y%m%d_%H%M%S)"
 echo "Saving current configs to $BACKUP_DIR before restoring..."
 mkdir -p "$BACKUP_DIR/nvim"
 cp ~/.zshrc "$BACKUP_DIR/zshrc"
-cp ~/.config/alacritty/alacritty.toml "$BACKUP_DIR/alacritty.toml"
+cp "$HOME/Library/Application Support/com.mitchellh.ghostty/config.ghostty" "$BACKUP_DIR/config.ghostty"
 cp ~/.tmux.conf "$BACKUP_DIR/tmux.conf"
 cp -r ~/.config/nvim/. "$BACKUP_DIR/nvim/"
 echo "Backup saved."
@@ -14,9 +14,9 @@ echo "Backup saved."
 echo "Restoring zsh..."
 cp "$DOTFILES/zshrc_backup" ~/.zshrc
 
-echo "Restoring alacritty..."
-cp "$DOTFILES/alacritty_backup/alacritty.toml" ~/.config/alacritty/alacritty.toml
-cp "$DOTFILES/alacritty_backup/alacritty.macos.toml" ~/.config/alacritty/platform.toml
+echo "Restoring ghostty..."
+mkdir -p "$HOME/Library/Application Support/com.mitchellh.ghostty"
+cp "$DOTFILES/ghostty_backup/config.ghostty" "$HOME/Library/Application Support/com.mitchellh.ghostty/config.ghostty"
 
 echo "Restoring tmux..."
 cp "$DOTFILES/tmux.conf_backup" ~/.tmux.conf

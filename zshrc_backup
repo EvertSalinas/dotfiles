@@ -8,6 +8,36 @@ ZSH_THEME=""
 plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
+# Vi mode for editing the command line
+bindkey -v
+export KEYTIMEOUT=20  # ms to wait for a multi-key sequence (esc -> normal mode) before acting
+
+# Cursor shape reflects vi mode: block = normal, beam = insert
+function zle-keymap-select {
+  if [[ ${KEYMAP} == vicmd ]]; then
+    echo -ne '\e[2 q'  # block
+  else
+    echo -ne '\e[6 q'  # beam
+  fi
+}
+zle -N zle-keymap-select
+
+function zle-line-init {
+  echo -ne '\e[6 q'  # start each new prompt in insert (beam)
+}
+zle -N zle-line-init
+
+# Let backspace delete past where insert mode started
+bindkey -M viins '^?' backward-delete-char
+
+# ctrl-r for history search even in normal mode
+bindkey -M vicmd '^r' history-incremental-search-backward
+
+# 'v' in normal mode opens the current command line in $EDITOR
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd 'v' edit-command-line
+
 alias zshconfig="nvim ~/.zshrc"
 alias ohmyzsh="nvim ~/.oh-my-zsh"
 alias vimconfig="nvim ~/.vimrc"
@@ -53,6 +83,8 @@ alias kcontextqa="kubectl config use-context qa-002-1-33-cluster"
 alias kcontextint="kubectl config use-context integration-002-1-33-cluster"
 alias kcontextprod="kubectl config use-context prod-use1-001-1-33-cluster"
 
+alias claudio="claude"
+
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
 fi
@@ -61,6 +93,10 @@ export PATH="$HOME/Code/dotfiles/bin:$PATH"
 export PATH=/usr/local/bin:$PATH
 export PATH="/usr/local/bin/python3:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+
+# migite vault root (default changed from ~/Documents/MasterVault/dev-log to
+# the portable ~/dev-log — this pins it back to the existing Obsidian vault)
+export DEV_LOG_BASE="$HOME/Documents/MasterVault/dev-log"
 
 export EDITOR='nvim'
 export UID=$(id -u)

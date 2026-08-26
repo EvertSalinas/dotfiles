@@ -74,3 +74,15 @@ map('i', '<S-Tab>', '<C-n>', create_desc("Completion (next match)"))
 if vim.fn.executable('ag') == 1 then
   vim.keymap.set('n', '\\', ':Ag ', { noremap = true, silent = false, desc = 'Ag search' })
 end
+
+-- Copy current filename to system clipboard
+vim.keymap.set("n", "<leader>cf", function()
+    vim.fn.setreg("+", vim.fn.expand("%:t"))
+    print("Copied filename: " .. vim.fn.expand("%:t"))
+end, { desc = "[C]opy [F]ilename" })
+
+-- Copy current absolute path to system clipboard
+vim.keymap.set("n", "<leader>cp", function()
+    vim.fn.setreg("+", vim.fn.expand("%:p"))
+    print("Copied full path")
+end, { desc = "[C]opy [P]ath" })

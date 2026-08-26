@@ -19,10 +19,9 @@ A collection of configuration files and setups for my development environment on
   - Organized structure (`autocommands`, `keymaps`, `options`).
   - Custom plugin setups.
 
-### Terminal: Alacritty
-- **Configuration Directory:** `alacritty_backup/`
-- **Themes:** Extensive collection of themes (Catppuccin, Dracula, Gruvbox, Nord, etc.) located in `themes/`.
-- **Main Config:** `alacritty.toml`
+### Terminal: Ghostty
+- **Configuration Directory:** `ghostty_backup/`
+- **Main Config:** `config.ghostty`
 
 ### Session Management: Tmux & Tmuxinator
 - **Tmux Config:** `tmux.conf_backup`
@@ -36,7 +35,7 @@ A collection of configuration files and setups for my development environment on
 
 ```
 .
-├── alacritty_backup/   # Alacritty terminal configuration and themes
+├── ghostty_backup/     # Ghostty terminal configuration
 ├── nvim_backup/        # Neovim lua configuration
 ├── tmux.conf_backup    # Tmux configuration file
 ├── zshrc_backup        # Zsh shell configuration
@@ -57,10 +56,10 @@ cp zshrc_backup ~/.zshrc
 cp tmux.conf_backup ~/.tmux.conf
 ```
 
-### Alacritty
+### Ghostty
 ```bash
-mkdir -p ~/.config/alacritty
-cp -r alacritty_backup/* ~/.config/alacritty/
+mkdir -p "$HOME/Library/Application Support/com.mitchellh.ghostty"
+cp ghostty_backup/config.ghostty "$HOME/Library/Application Support/com.mitchellh.ghostty/config.ghostty"
 ```
 
 ### Neovim
