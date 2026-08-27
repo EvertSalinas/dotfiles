@@ -1,15 +1,14 @@
 -- lua/plugins/telescope.lua
 return {
   "nvim-telescope/telescope.nvim",
-  branch = "master",
+  tag = "0.1.5", -- Specify the exact tag as in your Vim-Plug config
   dependencies = { "nvim-lua/plenary.nvim" },
   config = function()
     require('telescope').setup({
       -- Your Telescope configurations here
       defaults = {
-        preview = {
-          treesitter = false,
-        },
+        -- Example: disable preview in some pickers
+        -- previewer = false,
       },
     })
   end,
