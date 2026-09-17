@@ -76,15 +76,6 @@ if vim.fn.executable('ag') == 1 then -- `executable()` returns 1 for true, 0 for
   vim.env.FZF_DEFAULT_COMMAND = 'ag --literal --files-with-matches --nocolor --hidden -g ""'
 end
 
--- NERDTree (these will be set in NERDTree's config function in lua/plugins/nerdtree.lua)
--- For demonstration, if you were to put them here:
-vim.g.NERDTreeShowBookmarks = 1
-vim.g.NERDTreeShowHidden = 1
-vim.g.NERDTreeShowLineNumbers = 0
-vim.g.NERDTreeMinimalMenu = 1
-vim.g.NERDTreeWinPos = "left"
-vim.g.NERDTreeWinSize = 31
-
 -- Removed legacy vim-rspec command to avoid overriding vim-test behavior
 vim.g.rspec_command = nil
 

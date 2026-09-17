@@ -8,15 +8,15 @@ local function create_desc(desc)
   return { desc = desc, noremap = true, silent = true }
 end
 
--- If a real file is opened, find it in NERDTree; otherwise toggle the tree
+-- If a real file is opened, find it in the tree; otherwise toggle the tree
 map('n', '<Leader>n', function()
   local current_path = vim.api.nvim_buf_get_name(0)
   if current_path ~= '' and vim.fn.filereadable(current_path) == 1 then
-    vim.cmd('NERDTreeFind')
+    require('nvim-tree.api').tree.find_file({ open = true, focus = true })
   else
-    vim.cmd('NERDTreeToggle')
+    require('nvim-tree.api').tree.toggle()
   end
-end, create_desc("NERDTree: Find file or Toggle"))
+end, create_desc("NvimTree: Find file or Toggle"))
 
 
 -- Telescope Mappings
