@@ -23,5 +23,4 @@ require("lazy").setup({
   },
   install = { colorscheme = { "onedark" } },
   checker = { enabled = false },
-  git = { command = "/opt/homebrew/bin/git" },
 })

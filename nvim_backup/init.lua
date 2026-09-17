@@ -1,7 +1,9 @@
 -- ~/.config/nvim/init.lua
 
 -- Ensure Homebrew binaries (git, etc.) are findable by async processes on macOS
-vim.env.PATH = "/opt/homebrew/bin:/usr/local/bin:" .. vim.env.PATH
+if vim.fn.has("mac") == 1 then
+  vim.env.PATH = "/opt/homebrew/bin:/usr/local/bin:" .. vim.env.PATH
+end
 
 -- Make sure to setup `mapleader` and `maplocalleader` before
 -- loading lazy.nvim so that mappings are correct.

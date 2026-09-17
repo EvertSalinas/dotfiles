@@ -75,14 +75,29 @@ vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
     -- Check if no arguments were provided and no stdin input detected
     if vim.fn.argc() == 0 and not has_stdin_input then
-      -- It's better to use `vim.cmd.NERDTree()` if it's available, or just `vim.cmd('NERDTree')`
-      -- This ensures NERDTree is loaded before the command is called.
-      -- If NERDTree is lazy-loaded, you might need to ensure its command is available.
-      -- Lazy.nvim usually handles `cmd` for you.
-      vim.cmd("NERDTree")
+      vim.cmd("NvimTreeOpen")
     end
   end,
-  desc = "Open NERDTree on empty startup",
+  desc = "Open file explorer on empty startup",
 })
 
---- 4. TrimWhite
+--- 4. Stop LSP clients once their last attached buffer is gone
+-- Long-lived sessions (esp. restored by tmux-continuum) otherwise leave
+-- solargraph/pyright running indefinitely with zero buffers attached.
+local stop_idle_lsp_group = create_augroup("StopIdleLsp")
+
+vim.api.nvim_create_autocmd("LspDetach", {
+  group = stop_idle_lsp_group,
+  callback = function(args)
+    local client_id = args.data.client_id
+    vim.schedule(function()
+      local client = vim.lsp.get_client_by_id(client_id)
+      if client and vim.tbl_isempty(client.attached_buffers) then
+        client.stop()
+      end
+    end)
+  end,
+  desc = "Stop LSP client when its last attached buffer detaches",
+})
+
+--- 5. TrimWhite

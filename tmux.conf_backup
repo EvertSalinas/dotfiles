@@ -46,9 +46,11 @@ set-window-option -g mode-keys vi
 bind-key -T copy-mode-vi 'v' send -X begin-selection
 bind-key -T copy-mode-vi 'y' send -X copy-selection-and-cancel
 
-# macOS: needed for clipboard access (pbcopy/pbpaste) inside tmux
-if-shell "uname | grep -q Darwin" \
-  "set-option -g default-command 'reattach-to-user-namespace -l $SHELL'"
+# macOS clipboard (pbcopy/pbpaste) has worked natively inside tmux since Sierra (2016),
+# so reattach-to-user-namespace is no longer needed and was leaking orphaned shell
+# processes on every pane respawn/continuum restore cycle. Disabled 2026-09-10.
+# if-shell "uname | grep -q Darwin" \
+#   "set-option -g default-command 'reattach-to-user-namespace -l $SHELL'"
 
 set-option -g display-panes-active-colour colour250
 set-option -g display-panes-colour colour237
