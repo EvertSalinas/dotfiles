@@ -31,7 +31,8 @@ A collection of configuration files and setups for my development environment, s
   - **Keybindings:** Vim-like pane navigation (`h`, `j`, `k`, `l`) and resizing.
   - **Reload:** Quick config reload with `r`.
   - **Plugins:** tpm, tmux-yank, tmux-plugin-sysstat, vim-tmux-navigator, tmux-themepack, tmux-resurrect, tmux-continuum (session persistence/restore).
-- **Tmuxinator**
+- **Tmuxinator Config:** `tmuxinator_backup/`
+  - Per-project session layouts (editor/server/lazygit windows, etc.) for each active project.
 
 ## 📂 Repository Structure
 
@@ -41,6 +42,7 @@ A collection of configuration files and setups for my development environment, s
 ├── nvim_backup/          # Neovim lua configuration
 ├── pre_restore_backup/   # Snapshots of your existing configs, saved automatically before a restore
 ├── tmux.conf_backup      # Tmux configuration file
+├── tmuxinator_backup/    # Tmuxinator per-project session configs
 ├── zshrc_backup          # Zsh shell configuration
 ├── backup_dotfiles.sh    # Copies your live configs into this repo
 ├── restore_dotfiles.sh   # Applies this repo's configs to your machine
@@ -85,6 +87,12 @@ cp ghostty_backup/config.ghostty "$HOME/Library/Application Support/com.mitchell
 ```bash
 mkdir -p ~/.config/nvim
 cp -r nvim_backup/* ~/.config/nvim/
+```
+
+### Tmuxinator
+```bash
+mkdir -p ~/.config/tmuxinator
+cp tmuxinator_backup/*.yml ~/.config/tmuxinator/
 ```
 
 ## 📦 Additional Tooling
