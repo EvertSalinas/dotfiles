@@ -1,6 +1,6 @@
 # Evert's Dotfiles
 
-A collection of configuration files and setups for my development environment on macOS.
+A collection of configuration files and setups for my development environment, supporting both macOS and Linux.
 
 ## 🛠 Core Tools & Configuration
 
@@ -9,7 +9,9 @@ A collection of configuration files and setups for my development environment on
 - **Theme:** Powerlevel10k
 - **Features:**
   - Instant prompt for speed.
-  - Custom aliases for navigation and quick config editing (`zshconfig`, `tmuxconfig`).
+  - Vi mode for command-line editing, with cursor shape reflecting the current mode.
+  - OS detection (`Darwin` vs. Linux) to load the right Homebrew/asdf/plugin paths on each platform.
+  - Custom aliases for navigation, git, Rails, AWS/k8s, and quick config editing (`zshconfig`, `tmuxconfig`).
 
 ### Editor: Neovim
 - **Configuration Directory:** `nvim_backup/`
@@ -17,7 +19,7 @@ A collection of configuration files and setups for my development environment on
 - **Key Features:**
   - Lua-based configuration.
   - Organized structure (`autocommands`, `keymaps`, `options`).
-  - Custom plugin setups.
+  - Custom plugin setups, including LSP, Treesitter, Telescope, nvim-tree, vim-fugitive, and Rails/Ruby tooling.
 
 ### Terminal: Ghostty
 - **Configuration Directory:** `ghostty_backup/`
@@ -28,23 +30,42 @@ A collection of configuration files and setups for my development environment on
   - **Prefix:** `C-s` (remapped from `C-b`).
   - **Keybindings:** Vim-like pane navigation (`h`, `j`, `k`, `l`) and resizing.
   - **Reload:** Quick config reload with `r`.
-- **Tmuxinator**
-
+  - **Plugins:** tpm, tmux-yank, tmux-plugin-sysstat, vim-tmux-navigator, tmux-themepack, tmux-resurrect, tmux-continuum (session persistence/restore).
+- **Tmuxinator Config:** `tmuxinator_backup/`
+  - Per-project session layouts (editor/server/lazygit windows, etc.) for each active project.
 
 ## 📂 Repository Structure
 
 ```
 .
-├── ghostty_backup/     # Ghostty terminal configuration
-├── nvim_backup/        # Neovim lua configuration
-├── tmux.conf_backup    # Tmux configuration file
-├── zshrc_backup        # Zsh shell configuration
+├── ghostty_backup/       # Ghostty terminal configuration
+├── nvim_backup/          # Neovim lua configuration
+├── pre_restore_backup/   # Snapshots of your existing configs, saved automatically before a restore
+├── tmux.conf_backup      # Tmux configuration file
+├── tmuxinator_backup/    # Tmuxinator per-project session configs
+├── zshrc_backup          # Zsh shell configuration
+├── backup_dotfiles.sh    # Copies your live configs into this repo
+├── restore_dotfiles.sh   # Applies this repo's configs to your machine
 └── README.md
 ```
 
 ## 🚀 Usage
 
-These files are suffixed with `_backup` to avoid accidental overwrites. To use them, you can symlink or copy them to their respective locations:
+These files are suffixed with `_backup` to avoid accidental overwrites. Two scripts automate moving files in each direction:
+
+### Backing up
+Copies your current `~/.zshrc`, Ghostty config, Neovim config, and `~/.tmux.conf` into this repo:
+```bash
+./backup_dotfiles.sh
+```
+
+### Restoring
+Saves a timestamped snapshot of your current configs to `pre_restore_backup/`, then applies the configs from this repo to your machine:
+```bash
+./restore_dotfiles.sh
+```
+
+You can also copy individual files manually:
 
 ### Zsh
 ```bash
@@ -68,7 +89,14 @@ mkdir -p ~/.config/nvim
 cp -r nvim_backup/* ~/.config/nvim/
 ```
 
+### Tmuxinator
+```bash
+mkdir -p ~/.config/tmuxinator
+cp tmuxinator_backup/*.yml ~/.config/tmuxinator/
+```
+
 ## 📦 Additional Tooling
 - **Database Client:** DBeaver
 - **Productivity:** Todoist, Obsidian
 - **CLI Utilities:** bat
+</content>

@@ -5,10 +5,12 @@ BACKUP_DIR="$DOTFILES/pre_restore_backup/$(date +%Y%m%d_%H%M%S)"
 
 echo "Saving current configs to $BACKUP_DIR before restoring..."
 mkdir -p "$BACKUP_DIR/nvim"
+mkdir -p "$BACKUP_DIR/tmuxinator"
 cp ~/.zshrc "$BACKUP_DIR/zshrc"
 cp "$HOME/Library/Application Support/com.mitchellh.ghostty/config.ghostty" "$BACKUP_DIR/config.ghostty"
 cp ~/.tmux.conf "$BACKUP_DIR/tmux.conf"
 cp -r ~/.config/nvim/. "$BACKUP_DIR/nvim/"
+cp ~/.config/tmuxinator/*.yml "$BACKUP_DIR/tmuxinator/" 2>/dev/null
 echo "Backup saved."
 
 echo "Restoring zsh..."
@@ -20,6 +22,10 @@ cp "$DOTFILES/ghostty_backup/config.ghostty" "$HOME/Library/Application Support/
 
 echo "Restoring tmux..."
 cp "$DOTFILES/tmux.conf_backup" ~/.tmux.conf
+
+echo "Restoring tmuxinator..."
+mkdir -p ~/.config/tmuxinator
+cp "$DOTFILES/tmuxinator_backup/"*.yml ~/.config/tmuxinator/
 
 echo "Restoring nvim..."
 FUGITIVE_TMP=""
