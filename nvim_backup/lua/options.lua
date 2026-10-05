@@ -69,10 +69,12 @@ vim.g.ale_sign_error = '>>'
 
 -- FZF (The FZF_DEFAULT_COMMAND is an environment variable)
 -- The `executable('ag')` check and `command` definition will be handled separately.
-if vim.fn.executable('ag') == 1 then -- `executable()` returns 1 for true, 0 for false
+if vim.fn.executable('rg') == 1 then
+  vim.opt.grepprg = 'rg --vimgrep --smart-case'
+  vim.opt.grepformat = '%f:%l:%c:%m'
+  vim.env.FZF_DEFAULT_COMMAND = 'rg --files --hidden --glob !.git'
+elseif vim.fn.executable('ag') == 1 then
   vim.opt.grepprg = 'ag --nogroup --nocolor'
-  -- Setting environment variables in Lua
-  -- This will set it for the current Neovim process and any child processes it spawns.
   vim.env.FZF_DEFAULT_COMMAND = 'ag --literal --files-with-matches --nocolor --hidden -g ""'
 end
 

@@ -42,7 +42,8 @@ alias zshconfig="nvim ~/.zshrc"
 alias ohmyzsh="nvim ~/.oh-my-zsh"
 alias vimconfig="nvim ~/.vimrc"
 alias tmuxconfig="nvim ~/.config/tmux/tmux.conf"
-alias ls="command ls ${colorflag}"
+alias ls="eza -l --git --group-directories-first"
+alias lt="eza --tree --level=2 --git-ignore"
 alias cl="clear"
 
 # Navigation
@@ -83,7 +84,12 @@ alias kcontextqa="kubectl config use-context qa-002-1-33-cluster"
 alias kcontextint="kubectl config use-context integration-002-1-33-cluster"
 alias kcontextprod="kubectl config use-context prod-use1-001-1-33-cluster"
 
+# AI
 alias claudio="claude"
+
+# Media
+alias qobuz="ampcli -Q"
+alias spotify="ampcli -S"
 
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
@@ -131,4 +137,7 @@ fi
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-eval "$(direnv hook zsh)"
+export MIGITE_PYTHON="$HOME/Code/migite/.venv/bin/python3"
+
+# kimi-code
+export PATH="/home/zakicmatic/.kimi-code/bin:$PATH"

@@ -71,9 +71,7 @@ map('i', '<S-Tab>', '<C-n>', create_desc("Completion (next match)"))
 -- This part is best handled in the fzf.lua plugin config or a dedicated commands.lua file,
 -- especially since it's conditional on `ag` existing.
 -- If you moved the `command Ag` definition to Lua, then its keymap would look like:
-if vim.fn.executable('ag') == 1 then
-  vim.keymap.set('n', '\\', ':Ag ', { noremap = true, silent = false, desc = 'Ag search' })
-end
+vim.keymap.set('n', '\\', '<cmd>Telescope live_grep<cr>', { noremap = true, silent = true, desc = 'Live grep' })
 
 -- Copy current filename to system clipboard
 vim.keymap.set("n", "<leader>cf", function()

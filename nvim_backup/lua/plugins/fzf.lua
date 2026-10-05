@@ -13,7 +13,11 @@ return {
   { "junegunn/fzf.vim",
     -- Your fzf related options (e.g., FZF_DEFAULT_COMMAND) can be set here:
     config = function()
-      if vim.fn.executable('ag') == 1 then
+      if vim.fn.executable('rg') == 1 then
+        vim.opt.grepprg = 'rg --vimgrep --smart-case'
+        vim.opt.grepformat = '%f:%l:%c:%m'
+        vim.env.FZF_DEFAULT_COMMAND = 'rg --files --hidden --glob !.git'
+      elseif vim.fn.executable('ag') == 1 then
         vim.opt.grepprg = 'ag --nogroup --nocolor'
         vim.env.FZF_DEFAULT_COMMAND = 'ag --literal --files-with-matches --nocolor --hidden -g ""'
       end

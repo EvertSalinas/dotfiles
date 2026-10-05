@@ -16,7 +16,6 @@ return {
   -- You'll move Telescope keymaps here later
   keys = {
     { "<leader>p", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
-  --   { "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
-  --   -- ... etc.
+    { "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
   },
 }
