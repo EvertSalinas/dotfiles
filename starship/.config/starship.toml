@@ -1,0 +1,144 @@
+# Starship prompt. Switch theme by changing `palette` below.
+# Preview the terminal side with: ghostty +list-themes
+"$schema" = 'https://starship.rs/config-schema.json'
+
+palette = 'monokai_remastered'
+
+add_newline = true
+command_timeout = 500
+
+format = """
+$directory\
+$git_branch\
+$git_status\
+$ruby\
+$nodejs\
+$python\
+$kubernetes\
+$aws\
+$cmd_duration\
+$line_break\
+$character"""
+
+[character]
+success_symbol = '[❯](bold green)'
+error_symbol = '[❯](bold red)'
+vimcmd_symbol = '[❮](bold mauve)'
+
+[directory]
+style = 'bold blue'
+truncation_length = 3
+truncation_symbol = '…/'
+read_only = ' 󰌾'
+
+[git_branch]
+symbol = ' '
+style = 'bold mauve'
+format = '[on $symbol$branch]($style) '
+
+[git_status]
+style = 'yellow'
+format = '([\[$all_status$ahead_behind\]]($style) )'
+
+[ruby]
+symbol = ' '
+style = 'red'
+format = '[$symbol($version)]($style) '
+
+[nodejs]
+symbol = ' '
+style = 'green'
+format = '[$symbol($version)]($style) '
+
+[python]
+symbol = ' '
+style = 'yellow'
+format = '[$symbol($version)]($style) '
+
+[kubernetes]
+disabled = false
+symbol = '󱃾 '
+style = 'sapphire'
+format = '[$symbol$context]($style) '
+
+[aws]
+symbol = ' '
+style = 'peach'
+format = '[$symbol($profile )]($style)'
+
+[cmd_duration]
+min_time = 3000
+style = 'overlay'
+format = '[took $duration]($style) '
+
+# --- Palettes (role names are shared so only `palette` needs to change) ---
+
+[palettes.catppuccin_mocha]
+red = '#f38ba8'
+green = '#a6e3a1'
+yellow = '#f9e2af'
+blue = '#89b4fa'
+mauve = '#cba6f7'
+sapphire = '#74c7ec'
+peach = '#fab387'
+overlay = '#6c7086'
+
+[palettes.catppuccin_macchiato]
+red = '#ed8796'
+green = '#a6da95'
+yellow = '#eed49f'
+blue = '#8aadf4'
+mauve = '#c6a0f6'
+sapphire = '#7dc4e4'
+peach = '#f5a97f'
+overlay = '#6e738d'
+
+[palettes.tokyo_night]
+red = '#f7768e'
+green = '#9ece6a'
+yellow = '#e0af68'
+blue = '#7aa2f7'
+mauve = '#bb9af7'
+sapphire = '#7dcfff'
+peach = '#ff9e64'
+overlay = '#565f89'
+
+[palettes.rose_pine]
+red = '#eb6f92'
+green = '#9ccfd8'
+yellow = '#f6c177'
+blue = '#31748f'
+mauve = '#c4a7e7'
+sapphire = '#9ccfd8'
+peach = '#ebbcba'
+overlay = '#6e6a86'
+
+[palettes.gruvbox_dark]
+red = '#fb4934'
+green = '#b8bb26'
+yellow = '#fabd2f'
+blue = '#83a598'
+mauve = '#d3869b'
+sapphire = '#8ec07c'
+peach = '#fe8019'
+overlay = '#928374'
+
+[palettes.monokai_pro]
+red = '#ff6188'
+green = '#a9dc76'
+yellow = '#ffd866'
+blue = '#78dce8'
+mauve = '#ab9df2'
+sapphire = '#78dce8'
+peach = '#fc9867'
+overlay = '#727072'
+
+[palettes.monokai_remastered]
+red = '#f4005f'
+green = '#98e024'
+yellow = '#e0d561'
+blue = '#58d1eb'
+mauve = '#9d65ff'
+sapphire = '#58d1eb'
+peach = '#fd971f'
+overlay = '#625e4c'

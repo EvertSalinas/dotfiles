@@ -9,6 +9,7 @@ Configs are managed with [GNU Stow](https://www.gnu.org/software/stow/): each to
 | Package | Links to | Notes |
 |---|---|---|
 | `zsh` | `~/.zshrc`, `~/.zshenv`, `~/.zprofile` | OS-guarded (`$OSTYPE` / `uname`); needs zinit installed |
+| `starship` | `~/.config/starship.toml` | Prompt; switch theme via `palette` (monokai_remastered, monokai_pro, catppuccin_mocha, tokyo_night, rose_pine, gruvbox_dark) |
 | `tmux` | `~/.tmux.conf` | Prefix `C-s`, plugins via tpm |
 | `nvim` | `~/.config/nvim` | lazy.nvim; `lazy-lock.json` is shared across machines |
 | `ghostty-mac` | `~/.config/ghostty/config` | macOS only |
@@ -27,12 +28,12 @@ This repo does not live directly under `~`, so stow needs `-t ~`.
 # macOS
 brew install stow
 cd ~/Code/Evert/dotfiles
-stow -t ~ zsh tmux nvim ghostty-mac git tmuxinator btop
+stow -t ~ zsh starship tmux nvim ghostty-mac git tmuxinator btop
 
 # Linux (Omarchy)
 sudo pacman -S stow
 cd ~/Code/Evert/dotfiles
-stow -t ~ zsh tmux nvim ghostty-linux git tmuxinator btop
+stow -t ~ zsh starship tmux nvim ghostty-linux git tmuxinator btop
 ```
 
 Existing real files at the target paths make stow abort with a conflict. Move them aside first (for example into `~/dotfiles-backup/`), then re-run.

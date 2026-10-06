@@ -10,17 +10,40 @@ local function lsp_clients()
   return ' ' .. table.concat(names, ', ')
 end
 
+-- Monokai Remastered, matching the colorscheme in plugins/monokai.lua
+local monokai_remastered = (function()
+  local c = {
+    bg = '#0c0c0c', bg_alt = '#262626', fg = '#d9d9d9', grey = '#625e4c',
+    green = '#98e024', cyan = '#58d1eb', purple = '#9d65ff', orange = '#fd971f', pink = '#f4005f',
+  }
+  local function mode(accent)
+    return {
+      a = { fg = c.bg, bg = accent, gui = 'bold' },
+      b = { fg = c.fg, bg = c.bg_alt },
+      c = { fg = c.fg, bg = c.bg },
+    }
+  end
+  return {
+    normal = mode(c.green),
+    insert = mode(c.cyan),
+    visual = mode(c.purple),
+    replace = mode(c.pink),
+    command = mode(c.orange),
+    inactive = {
+      a = { fg = c.grey, bg = c.bg },
+      b = { fg = c.grey, bg = c.bg },
+      c = { fg = c.grey, bg = c.bg },
+    },
+  }
+end)()
+
 return {
   'nvim-lualine/lualine.nvim',
-  dependencies = {
-    'nvim-tree/nvim-web-devicons',
-    { 'catppuccin/nvim', name = 'catppuccin' }, -- palette only; colorscheme stays onedark
-  },
+  dependencies = { 'nvim-tree/nvim-web-devicons' },
   config = function()
-    require('catppuccin').setup({ flavour = 'mocha' })
     require('lualine').setup({
       options = {
-        theme = require('catppuccin.utils.lualine')('mocha'),
+        theme = monokai_remastered,
         section_separators = { left = '', right = '' },
         component_separators = '',
         globalstatus = true,

@@ -41,7 +41,6 @@ vim.opt.cursorline = true -- Highlight the current line
 vim.cmd('syntax on')       -- Enable syntax highlighting
 vim.opt.termguicolors = true -- Enable true colors (24-bit) if your terminal supports it
 -- vim.opt.t_Co = 256         -- Set terminal colors to 256 (redundant if termguicolors is true, but harmless)
-vim.cmd('colorscheme onedark') -- Set the colorscheme
 
 -- Highlight definitions (these are commands, often put in a dedicated theme file or after colorscheme)
 vim.cmd('hi LineNr ctermfg=250 ctermbg=234')
