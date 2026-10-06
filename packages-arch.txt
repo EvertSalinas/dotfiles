@@ -17,11 +17,18 @@ fzf
 gawk
 glow
 ripgrep
+starship
 stow
 the_silver_searcher
 unarchiver
 wget
 yt-dlp
+
+# yazi preview helpers (video, archives, PDF, SVG)
+ffmpeg
+7zip
+poppler
+resvg
 
 # Editor / terminal
 neovim

@@ -4,10 +4,8 @@
 
 # --- Taps ---
 tap "atlassian/acli"
-tap "derailed/k9s"
 tap "heroku/brew"
 tap "jesseduffield/lazydocker"
-tap "koyeb/tap"
 
 # --- Core CLI ---
 brew "bat"
@@ -25,12 +23,22 @@ brew "unar"
 brew "wget"
 brew "yt-dlp"
 brew "zlib"
+brew "fd"
+brew "zoxide"
+brew "yazi"
+brew "starship"
+# yazi preview helpers (video, archives, PDF, SVG)
+brew "ffmpeg"
+brew "sevenzip"
+brew "poppler"
+brew "resvg"
 
 # --- Editor / terminal ---
 brew "neovim"
 brew "tmux"
 brew "reattach-to-user-namespace"
 brew "overmind"
+brew "sesh"
 
 # --- Git / signing ---
 brew "git"
@@ -54,10 +62,8 @@ brew "cocoapods"
 # --- Data / infra ---
 brew "awscli"
 brew "kubernetes-cli"
-brew "derailed/k9s/k9s"
 brew "jesseduffield/lazydocker/lazydocker"
 brew "heroku/brew/heroku"
-brew "koyeb/tap/koyeb"
 brew "atlassian/acli/acli"
 brew "pgloader"
 brew "redis"
