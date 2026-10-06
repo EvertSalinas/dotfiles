@@ -1,0 +1,29 @@
+# Node
+npm-debug.log
+
+# Mac
+.DS_Store
+
+# vi
+*~
+
+# General
+log/
+*.log
+
+# env files
+.env
+
+# direnv env files
+.envrc
+
+# Procfile
+Procfile
+
+# Ruby version
+.ruby-version
+
+# Claude/kani workflow scratchpad
+scratchpad/
+
+**/.claude/settings.local.json
