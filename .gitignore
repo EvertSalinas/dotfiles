@@ -1,1 +1,3 @@
 .tool-versions
+zsh/.zcompdump*
+zsh/.zsh_history
