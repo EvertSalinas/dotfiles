@@ -1,1 +1,4 @@
 .tool-versions
+zsh/.zcompdump*
+zsh/.zsh_history
+nvim/.config/nvim/pack/

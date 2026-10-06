@@ -1,102 +1,89 @@
 # Evert's Dotfiles
 
-A collection of configuration files and setups for my development environment, supporting both macOS and Linux.
+A collection of configuration files and setups for my development environment, supporting both macOS and Linux (Omarchy).
+
+Configs are managed with [GNU Stow](https://www.gnu.org/software/stow/): each top-level folder is a *package* that mirrors the layout of `$HOME`, and `stow` symlinks it into place. Editing a file in `~` edits the repo, so `git` is the only sync mechanism between machines.
+
+## 📂 Packages
+
+| Package | Links to | Notes |
+|---|---|---|
+| `zsh` | `~/.zshrc`, `~/.zshenv`, `~/.zprofile` | OS-guarded (`$OSTYPE` / `uname`); needs zinit installed |
+| `tmux` | `~/.tmux.conf` | Prefix `C-s`, plugins via tpm |
+| `nvim` | `~/.config/nvim` | lazy.nvim; `lazy-lock.json` is shared across machines |
+| `ghostty-mac` | `~/.config/ghostty/config` | macOS only |
+| `ghostty-linux` | `~/.config/ghostty/config` | Omarchy only (theme is managed by Omarchy) |
+| `git` | `~/.gitconfig`, `~/.gitignore` | Machine-specific includes live outside the repo |
+| `tmuxinator` | `~/.config/tmuxinator/*.yml` | Personal projects only |
+| `btop` | `~/.config/btop/btop.conf` | |
+
+Stow only the packages that apply to the machine. `ghostty-mac` and `ghostty-linux` both target the same file, so never stow both.
+
+## 🚀 Usage
+
+This repo does not live directly under `~`, so stow needs `-t ~`.
+
+```bash
+# macOS
+brew install stow
+cd ~/Code/Evert/dotfiles
+stow -t ~ zsh tmux nvim ghostty-mac git tmuxinator btop
+
+# Linux (Omarchy)
+sudo pacman -S stow
+cd ~/Code/Evert/dotfiles
+stow -t ~ zsh tmux nvim ghostty-linux git tmuxinator btop
+```
+
+Existing real files at the target paths make stow abort with a conflict. Move them aside first (for example into `~/dotfiles-backup/`), then re-run.
+
+Preview without changing anything:
+
+```bash
+stow -n -v -t ~ <package>
+```
+
+Remove a package's links:
+
+```bash
+stow -D -t ~ <package>
+```
+
+### Things to know
+- **Zsh:** the plugin block is skipped until zinit exists at `~/.local/share/zinit/zinit.git`, so a fresh machine still gets a working shell, just without the prompt and plugins.
+- **Git package:** it has a `.stow-local-ignore` because stow skips `.gitignore` by default. `commit.gpgsign` is on, so the signing key must exist on the machine.
+- **Tmuxinator:** only personal projects are tracked here (the repo is public). Other project files can sit next to the symlinks in `~/.config/tmuxinator/` and stay untracked.
+- **Neovim:** the folder is linked as a whole, so new files under `~/.config/nvim` appear in the repo as untracked. `nvim/.config/nvim/pack/` is gitignored.
 
 ## 🛠 Core Tools & Configuration
 
 ### Shell: Zsh
-- **Configuration:** `zshrc_backup`
-- **Theme:** Powerlevel10k
+- **Plugin manager:** zinit (Powerlevel10k, autosuggestions, completions, syntax highlighting)
 - **Features:**
   - Instant prompt for speed.
   - Vi mode for command-line editing, with cursor shape reflecting the current mode.
-  - OS detection (`Darwin` vs. Linux) to load the right Homebrew/asdf/plugin paths on each platform.
+  - OS detection (`Darwin` vs. Linux) to load the right Homebrew/asdf paths on each platform.
   - Custom aliases for navigation, git, Rails, AWS/k8s, and quick config editing (`zshconfig`, `tmuxconfig`).
 
 ### Editor: Neovim
-- **Configuration Directory:** `nvim_backup/`
-- **Plugin Manager:** lazy.nvim (inferred from `lazy-lock.json`)
+- **Plugin Manager:** lazy.nvim
 - **Key Features:**
   - Lua-based configuration.
   - Organized structure (`autocommands`, `keymaps`, `options`).
   - Custom plugin setups, including LSP, Treesitter, Telescope, nvim-tree, vim-fugitive, and Rails/Ruby tooling.
 
 ### Terminal: Ghostty
-- **Configuration Directory:** `ghostty_backup/`
-- **Main Config:** `config.ghostty`
+- Separate per-OS packages: the Mac config is minimal, the Linux one includes Omarchy's theme and Hyprland tweaks.
 
 ### Session Management: Tmux & Tmuxinator
-- **Tmux Config:** `tmux.conf_backup`
+- **Tmux:**
   - **Prefix:** `C-s` (remapped from `C-b`).
   - **Keybindings:** Vim-like pane navigation (`h`, `j`, `k`, `l`) and resizing.
   - **Reload:** Quick config reload with `r`.
   - **Plugins:** tpm, tmux-yank, tmux-plugin-sysstat, vim-tmux-navigator, tmux-themepack, tmux-resurrect, tmux-continuum (session persistence/restore).
-- **Tmuxinator Config:** `tmuxinator_backup/`
-  - Per-project session layouts (editor/server/lazygit windows, etc.) for each active project.
-
-## 📂 Repository Structure
-
-```
-.
-├── ghostty_backup/       # Ghostty terminal configuration
-├── nvim_backup/          # Neovim lua configuration
-├── pre_restore_backup/   # Snapshots of your existing configs, saved automatically before a restore
-├── tmux.conf_backup      # Tmux configuration file
-├── tmuxinator_backup/    # Tmuxinator per-project session configs
-├── zshrc_backup          # Zsh shell configuration
-├── backup_dotfiles.sh    # Copies your live configs into this repo
-├── restore_dotfiles.sh   # Applies this repo's configs to your machine
-└── README.md
-```
-
-## 🚀 Usage
-
-These files are suffixed with `_backup` to avoid accidental overwrites. Two scripts automate moving files in each direction:
-
-### Backing up
-Copies your current `~/.zshrc`, Ghostty config, Neovim config, and `~/.tmux.conf` into this repo:
-```bash
-./backup_dotfiles.sh
-```
-
-### Restoring
-Saves a timestamped snapshot of your current configs to `pre_restore_backup/`, then applies the configs from this repo to your machine:
-```bash
-./restore_dotfiles.sh
-```
-
-You can also copy individual files manually:
-
-### Zsh
-```bash
-cp zshrc_backup ~/.zshrc
-```
-
-### Tmux
-```bash
-cp tmux.conf_backup ~/.tmux.conf
-```
-
-### Ghostty
-```bash
-mkdir -p "$HOME/Library/Application Support/com.mitchellh.ghostty"
-cp ghostty_backup/config.ghostty "$HOME/Library/Application Support/com.mitchellh.ghostty/config.ghostty"
-```
-
-### Neovim
-```bash
-mkdir -p ~/.config/nvim
-cp -r nvim_backup/* ~/.config/nvim/
-```
-
-### Tmuxinator
-```bash
-mkdir -p ~/.config/tmuxinator
-cp tmuxinator_backup/*.yml ~/.config/tmuxinator/
-```
+- **Tmuxinator:** per-project session layouts (editor/server/lazygit windows, etc.).
 
 ## 📦 Additional Tooling
 - **Database Client:** DBeaver
 - **Productivity:** Todoist, Obsidian
 - **CLI Utilities:** bat
-</content>
