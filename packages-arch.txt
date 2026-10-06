@@ -1,0 +1,66 @@
+# Arch/Omarchy equivalent of the Brewfile. One package per line, "#" lines are comments.
+# Official: awk '/^\[official\]/{f=1;next} /^\[/{f=0} f&&!/^#/&&NF' packages-arch.txt | sudo pacman -S --needed -
+# AUR:      awk '/^\[aur\]/{f=1;next} /^\[/{f=0} f&&!/^#/&&NF' packages-arch.txt | yay -S --needed -
+# Names were written without access to pacman, so check any that fail with `pacman -Ss` / `yay -Ss`.
+# Omarchy already ships many of these (git, neovim, fzf, ripgrep, bat, eza, btop, lazygit, mise, docker...),
+# --needed makes re-installing them a no-op.
+# Mac-only items intentionally absent: reattach-to-user-namespace, cocoapods, mole, orbstack, alacritty, rar, chromedriver, acli.
+# asdf/nvm/ruby-build are replaced by mise (plan Phase 1 item 4).
+
+[official]
+# Core CLI
+bat
+btop
+direnv
+eza
+fzf
+gawk
+glow
+ripgrep
+stow
+the_silver_searcher
+unarchiver
+wget
+yt-dlp
+
+# Editor / terminal
+neovim
+tmux
+
+# Git / signing
+git
+git-delta
+git-lfs
+github-cli
+lazygit
+gnupg
+pinentry
+
+# Languages (mise replaces asdf/nvm/ruby-build)
+mise
+python-pipx
+pnpm
+llvm
+
+# Data / infra
+aws-cli-v2
+kubectl
+k9s
+lazydocker
+docker
+valkey
+rclone
+unbound
+
+# Media / misc
+ghostscript
+imagemagick
+wimlib
+ttf-hack-nerd
+
+[aur]
+# verify each with `yay -Ss <name>` before installing
+overmind
+heroku-cli
+gemini-cli
+ngrok
