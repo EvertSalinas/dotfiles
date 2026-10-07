@@ -18,9 +18,6 @@
 [user]
 	name = Evert Salinas
 	email = evertsalinas88@gmail.com
-	signingkey = D399A4DCECF26217
-[commit]
-	gpgsign = true
 [filter "lfs"]
 	process = git-lfs filter-process
 	required = true

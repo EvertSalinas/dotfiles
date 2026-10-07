@@ -1,28 +1,175 @@
 # Arch/Omarchy equivalent of the Brewfile. One package per line, "#" lines are comments.
 # Official: awk '/^\[official\]/{f=1;next} /^\[/{f=0} f&&!/^#/&&NF' packages-arch.txt | sudo pacman -S --needed -
 # AUR:      awk '/^\[aur\]/{f=1;next} /^\[/{f=0} f&&!/^#/&&NF' packages-arch.txt | yay -S --needed -
-# Names were written without access to pacman, so check any that fail with `pacman -Ss` / `yay -Ss`.
-# Omarchy already ships many of these (git, neovim, fzf, ripgrep, bat, eza, btop, lazygit, mise, docker...),
-# --needed makes re-installing them a no-op.
+# [official] = Arch repos + the Omarchy repo (omarchy*, mise-bin, ghostty, spotify, nordvpn-bin...).
+# Every name was verified with `pacman -Si` / `yay -Si`; listed names match the installed ones so --needed
+# never tries to swap a package for a conflicting variant (e.g. mise-bin, not mise).
 # Mac-only items intentionally absent: reattach-to-user-namespace, cocoapods, mole, orbstack, alacritty, rar, chromedriver, acli.
-# asdf/nvm/ruby-build are replaced by mise (plan Phase 1 item 4).
+# Not installable from a repo/AUR: qbz-bin (built locally from https://github.com/vicrodh/qbz).
 
 [official]
+# Base system / boot
+base
+base-devel
+sudo
+linux-omarchy
+linux-omarchy-headers
+linux-firmware
+amd-ucode
+mkinitcpio
+kernel-modules-hook
+limine
+efibootmgr
+zram-generator
+btrfs-progs
+dosfstools
+exfatprogs
+wireless-regdb
+man-db
+less
+plocate
+pacman-contrib
+expac
+yay
+inetutils
+whois
+
+# Omarchy
+omarchy
+omarchy-keyring
+omarchy-settings
+omarchy-nvim
+omacalc
+omacut
+omawrite
+aether
+tensaku
+tobi-try
+herdr
+cliamp
+ttfx
+
+# Drivers / hardware (machine-specific: NVIDIA + AMD)
+nvidia-open-dkms
+nvidia-utils
+lib32-nvidia-utils
+libva-nvidia-driver
+vulkan-radeon
+lib32-vulkan-radeon
+bolt
+brightnessctl
+ddcutil
+asdcontrol
+power-profiles-daemon
+
+# Desktop (Hyprland)
+hyprland
+hyprland-guiutils
+hyprland-preview-share-picker
+hyprpicker
+hyprsunset
+uwsm
+sddm
+quickshell
+xdg-desktop-portal-gtk
+xdg-desktop-portal-hyprland
+xdg-terminal-exec
+grim
+slurp
+wl-clipboard
+wtype
+gpu-screen-recorder
+fcitx5
+fcitx5-gtk
+fcitx5-qt
+gnome-keyring
+gnome-themes-extra
+yaru-icon-theme
+
+# Audio
+pipewire
+pipewire-alsa
+pipewire-jack
+pipewire-pulse
+wireplumber
+libpulse
+gst-plugin-pipewire
+alsa-utils
+pamixer
+rtkit
+
+# Network / bluetooth / printing
+networkmanager
+bluez
+bluez-tools
+bluez-utils
+ufw
+ufw-docker
+nss-mdns
+tzupdate
+cups
+cups-filters
+cups-pk-helper
+system-config-printer
+
+# Files
+nautilus
+nautilus-python
+sushi
+gvfs-mtp
+gvfs-nfs
+gvfs-smb
+gnome-disk-utility
+udiskie
+ffmpegthumbnailer
+flatpak
+localsend
+
+# Fonts
+noto-fonts
+noto-fonts-cjk
+noto-fonts-emoji
+ttf-ia-writer
+ttf-jetbrains-mono-nerd-basic
+ttf-hack-nerd
+woff2-font-awesome
+
+# Shell
+zsh
+zsh-autosuggestions
+bash-completion
+starship
+
 # Core CLI
 bat
 btop
 direnv
+dua-cli
 eza
+fastfetch
+fd
 fzf
 gawk
 glow
+inotify-tools
+inxi
+jq
+qrencode
 ripgrep
-starship
+socat
 stow
 the_silver_searcher
+tldr
 unarchiver
+usage
 wget
+yazi
 yt-dlp
+zbar
+zoxide
+tesseract
+tesseract-data-eng
+cmatrix
 
 # yazi preview helpers (video, archives, PDF, SVG)
 ffmpeg
@@ -32,7 +179,10 @@ resvg
 
 # Editor / terminal
 neovim
+tree-sitter-cli
 tmux
+ghostty
+foot
 
 # Git / signing
 git
@@ -43,11 +193,22 @@ lazygit
 gnupg
 pinentry
 
-# Languages (mise replaces asdf/nvm/ruby-build)
-mise
+# Languages / build deps (mise replaces asdf/nvm/ruby-build)
+mise-bin
 python-pipx
+python-gobject
+python-poetry-core
 pnpm
 llvm
+clang
+ruby
+lua51
+luarocks
+dotnet-runtime
+libyaml
+libvips
+mariadb-libs
+postgresql-libs
 
 # Data / infra
 aws-cli-v2
@@ -55,19 +216,106 @@ kubectl
 k9s
 lazydocker
 docker
+docker-buildx
+docker-compose
+qemu-user-static-binfmt
 valkey
 rclone
 unbound
 
+# AI
+gemini-cli
+
+# Apps
+chromium
+discord
+obsidian
+spotify
+nordvpn-bin
+libreoffice-fresh
+evince
+xournalpp
+moonlight-qt
+
 # Media / misc
 ghostscript
 imagemagick
+imv
+mpv
+mpv-mpris
+obs-studio
+kdenlive
+pinta
+qt6-imageformats
 wimlib
-ttf-hack-nerd
+
+# Gaming
+steam
+gamescope
+mangohud
+lib32-mangohud
+retroarch
+retroarch-assets-glui
+retroarch-assets-ozone
+retroarch-assets-xmb
+retroarch-joypad-autoconfig-git
+libretro-core-info
+libretro-database-git
+libretro-overlays
+libretro-shaders-slang
+libretro-beetle-pce
+libretro-beetle-pce-fast
+libretro-beetle-psx
+libretro-beetle-psx-hw
+libretro-beetle-supergrafx
+libretro-blastem
+libretro-bsnes
+libretro-bsnes-hd
+libretro-cap32-git
+libretro-desmume
+libretro-dolphin
+libretro-fbneo-git
+libretro-flycast
+libretro-gambatte
+libretro-genesis-plus-gx
+libretro-kronos
+libretro-mame
+libretro-melonds
+libretro-mesen
+libretro-mesen-s
+libretro-mgba
+libretro-mupen64plus-next
+libretro-nestopia
+libretro-parallel-n64
+libretro-picodrive
+libretro-play
+libretro-ppsspp
+libretro-sameboy
+libretro-scummvm
+libretro-snes9x
+libretro-uae-git
+libretro-vice-x128-git
+libretro-vice-x64-git
+libretro-vice-x64dtv-git
+libretro-vice-x64sc-git
+libretro-vice-xcbm2-git
+libretro-vice-xcbm5x0-git
+libretro-vice-xpet-git
+libretro-vice-xplus4-git
+libretro-vice-xscpu64-git
+libretro-vice-xvic-git
+libretro-yabause
 
 [aur]
-# verify each with `yay -Ss <name>` before installing
-overmind
+abtop
+asdf-vm
+autofs
+brave-bin
+cbonsai
 heroku-cli
-gemini-cli
+hyprsession
 ngrok
+overmind
+plex-mpv-shim
+posting
+tmuxinator
