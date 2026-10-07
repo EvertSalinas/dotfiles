@@ -12,15 +12,11 @@ end
 
 return {
   'nvim-lualine/lualine.nvim',
-  dependencies = {
-    'nvim-tree/nvim-web-devicons',
-    { 'catppuccin/nvim', name = 'catppuccin' }, -- palette only; colorscheme stays onedark
-  },
+  dependencies = { 'nvim-tree/nvim-web-devicons' },
   config = function()
-    require('catppuccin').setup({ flavour = 'mocha' })
     require('lualine').setup({
       options = {
-        theme = require('catppuccin.utils.lualine')('mocha'),
+        theme = 'tokyonight',
         section_separators = { left = '', right = '' },
         component_separators = '',
         globalstatus = true,
