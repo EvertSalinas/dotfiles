@@ -2,7 +2,7 @@
 # Preview the terminal side with: ghostty +list-themes
 "$schema" = 'https://starship.rs/config-schema.json'
 
-palette = 'monokai_remastered'
+palette = 'tokyo_night'
 
 add_newline = true
 command_timeout = 500

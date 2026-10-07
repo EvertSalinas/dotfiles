@@ -9,8 +9,9 @@ Configs are managed with [GNU Stow](https://www.gnu.org/software/stow/): each to
 | Package | Links to | Notes |
 |---|---|---|
 | `zsh` | `~/.zshrc`, `~/.zshenv`, `~/.zprofile` | OS-guarded (`$OSTYPE` / `uname`); needs zinit installed for plugins |
-| `starship` | `~/.config/starship.toml` | Prompt; switch colors via `palette` (`monokai_remastered` is active; also `monokai_pro`, `catppuccin_mocha`, `catppuccin_macchiato`, `tokyo_night`, `rose_pine`, `gruvbox_dark`) |
+| `starship` | `~/.config/starship.toml` | Prompt; switch colors via `palette` (`tokyo_night` is active; also `monokai_remastered`, `monokai_pro`, `catppuccin_mocha`, `catppuccin_macchiato`, `rose_pine`, `gruvbox_dark`) |
 | `tmux` | `~/.tmux.conf` | Prefix `C-s`, plugins via tpm |
+| `bat` | `~/.config/bat/themes/` | TokyoNight theme; run `bat cache --build` once after stowing |
 | `nvim` | `~/.config/nvim` | lazy.nvim; `lazy-lock.json` is shared across machines |
 | `ghostty-mac` | `~/.config/ghostty/config` | macOS only; font and theme only |
 | `ghostty-linux` | `~/.config/ghostty/config` | Omarchy only (theme is managed by Omarchy) |
@@ -28,12 +29,12 @@ This repo does not live directly under `~`, so stow needs `-t ~`.
 # macOS
 brew install stow
 cd ~/Code/Evert/dotfiles
-stow -t ~ zsh starship tmux nvim ghostty-mac git tmuxinator btop
+stow -t ~ zsh starship bat tmux nvim ghostty-mac git tmuxinator btop
 
 # Linux (Omarchy)
 sudo pacman -S stow
 cd ~/Code/Evert/dotfiles
-stow -t ~ zsh starship tmux nvim ghostty-linux git tmuxinator btop
+stow -t ~ zsh starship bat tmux nvim ghostty-linux git tmuxinator btop
 ```
 
 Existing real files at the target paths make stow abort with a conflict. Move them aside first (for example into `~/dotfiles-backup/`), then re-run.
@@ -74,10 +75,10 @@ stow -D -t ~ <package>
   - Lua-based configuration.
   - Organized structure (`autocommands`, `keymaps`, `options`).
   - Custom plugin setups, including LSP, Treesitter, Telescope, nvim-tree, vim-fugitive, and Rails/Ruby tooling.
-  - Colorscheme: `monokai.nvim` with a Monokai Remastered palette (`lua/plugins/monokai.lua`), plus a matching hand-written lualine theme.
+  - Colorscheme: `tokyonight.nvim`, night style (`lua/plugins/tokyonight.lua`), with lualine using its bundled `tokyonight` theme.
 
 ### Terminal: Ghostty
-- Separate per-OS packages: the Mac config is minimal (FiraCode Nerd Font Mono, `Monokai Remastered` theme), the Linux one includes Omarchy's theme and Hyprland tweaks.
+- Separate per-OS packages: the Mac config is minimal (FiraCode Nerd Font Mono, `TokyoNight Night` theme), the Linux one includes Omarchy's theme and Hyprland tweaks.
 - Browse built-in themes with `ghostty +list-themes`, then set `theme = <name>` in `ghostty-mac/.config/ghostty/config`.
 
 ### Session Management: Tmux & Tmuxinator
@@ -85,26 +86,26 @@ stow -D -t ~ <package>
   - **Prefix:** `C-s` (remapped from `C-b`).
   - **Keybindings:** Vim-like pane navigation (`h`, `j`, `k`, `l`) and resizing.
   - **Reload:** Quick config reload with `r`.
-  - **Theme:** Monokai Remastered, set by hand in `.tmux.conf` (status bar, pane borders, messages).
+  - **Theme:** TokyoNight Night, set by hand in `.tmux.conf` (status bar, pane borders, messages).
   - **Plugins:** tpm, tmux-yank, tmux-plugin-sysstat, vim-tmux-navigator, tmux-resurrect, tmux-continuum (session persistence/restore).
 - **Tmuxinator:** per-project session layouts (editor/server/lazygit windows, etc.).
 
-## 🎨 Theme: Monokai Remastered
+## 🎨 Theme: TokyoNight Night
 
-One palette across the terminal so everything matches. Remastered has a near-black `#0c0c0c` background, which is where the contrast comes from.
+One palette across the terminal so everything matches.
 
 | Tool | Where | How |
 |---|---|---|
-| Ghostty | `ghostty-mac/.config/ghostty/config` | `theme = Monokai Remastered` (built in) |
-| Starship | `starship/.config/starship.toml` | `palette = 'monokai_remastered'` |
+| Ghostty | `ghostty-mac/.config/ghostty/config` | `theme = TokyoNight Night` (built in) |
+| Starship | `starship/.config/starship.toml` | `palette = 'tokyo_night'` |
 | tmux | `tmux/.tmux.conf` | hex colors in the `# Theme` block |
-| Neovim | `nvim/.config/nvim/lua/plugins/monokai.lua`, `lualine.lua` | custom palette passed to `monokai.nvim` |
-| bat | `zsh/.zshrc` | `BAT_THEME="Monokai Extended"` (closest built-in; there is no Remastered) |
+| Neovim | `nvim/.config/nvim/lua/plugins/tokyonight.lua`, `lualine.lua` | `folke/tokyonight.nvim`, `style = "night"` |
+| bat | `bat/.config/bat/themes/tokyonight_night.tmTheme` | `BAT_THEME="tokyonight_night"` in `zsh/.zshrc` (copied from the tokyonight.nvim `extras/sublime` folder) |
 | fzf / fzf-tab | `zsh/.zshrc` | `FZF_DEFAULT_OPTS` colors |
 
-Palette: pink `#f4005f`, green `#98e024`, yellow `#e0d561`, orange `#fd971f`, purple `#9d65ff`, cyan `#58d1eb`, grey `#625e4c`, foreground `#d9d9d9`.
+Palette: background `#1a1b26`, foreground `#c0caf5`, blue `#7aa2f7`, cyan `#7dcfff`, purple `#bb9af7`, green `#9ece6a`, orange `#ff9e64`, yellow `#e0af68`, red `#f7768e`, comment `#565f89`.
 
-To switch themes, change the Ghostty `theme` line and the Starship `palette` line (other palettes are already in `starship.toml`), then update the hex values in tmux, `monokai.lua`, `lualine.lua` and `FZF_DEFAULT_OPTS`.
+To switch themes, change the Ghostty `theme` line and the Starship `palette` line (other palettes are already in `starship.toml`), then update the hex values in tmux and `FZF_DEFAULT_OPTS`, the nvim colorscheme plugin, and the `bat` theme. After changing Ghostty's theme, reload with `cmd+shift+,`.
 
 ## 📦 Additional Tooling
 - **Database Client:** DBeaver

@@ -37,9 +37,10 @@ export DEV_LOG_BASE="$HOME/Documents/MasterVault/dev-log"
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND='fd --type d --hidden --exclude .git'
-# Monokai Remastered (matches ghostty, tmux, starship). bat has no Remastered, Monokai Extended is closest.
-export BAT_THEME="Monokai Extended"
-export FZF_DEFAULT_OPTS="--color=fg:#d9d9d9,fg+:#f6f6ef,bg+:#343434,hl:#fd971f,hl+:#fd971f,info:#9d65ff,prompt:#f4005f,pointer:#f4005f,marker:#98e024,spinner:#58d1eb,header:#625e4c,border:#625e4c"
+# TokyoNight Night (matches ghostty, tmux, starship, nvim). The bat theme lives in the `bat` stow package
+# (run `bat cache --build` once after stowing).
+export BAT_THEME="tokyonight_night"
+export FZF_DEFAULT_OPTS="--color=fg:#c0caf5,bg+:#283457,hl:#2ac3de,hl+:#2ac3de,info:#545c7e,prompt:#2ac3de,pointer:#ff007c,marker:#ff007c,spinner:#ff007c,header:#ff9e64,border:#27a1b9,separator:#ff9e64,scrollbar:#27a1b9"
 
 # --- PATH (base) ---
 export PATH="$HOME/Code/dotfiles/bin:$PATH"
