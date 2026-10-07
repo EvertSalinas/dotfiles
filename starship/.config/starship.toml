@@ -12,6 +12,7 @@ $git_state\
 $git_metrics\
 [](fg:#394260 bg:#212736)\
 $ruby\
+$python\
 $nodejs\
 $bun\
 $rust\
@@ -53,9 +54,14 @@ disabled = false
 format = '(([ +$added](fg:#9ece6a bg:#394260))([ -$deleted](fg:#f7768e bg:#394260))[ ](bg:#394260))'
 
 [ruby]
-symbol = ""
+symbol = ""
 style = "bg:#212736"
 format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+
+[python]
+symbol = ""
+style = "bg:#212736"
+format = '[[ $symbol ($version)( \($virtualenv\)) ](fg:#769ff0 bg:#212736)]($style)'
 
 [nodejs]
 symbol = ""
