@@ -30,3 +30,6 @@
 
 [includeIf "gitdir:~/Code/Apptegy/"]
 	path = ~/.gitconfig-apptegy
+
+[include]
+	path = ~/.gitconfig-local

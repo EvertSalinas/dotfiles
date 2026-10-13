@@ -1,0 +1,13 @@
+# /Users/evertsalinas/.config/tmuxinator/dotfiles.yml
+
+name: dotfiles
+root: ~/Code/Evert/dotfiles
+
+# Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
+startup_window: neovim
+
+windows:
+  - neovim: nvim .
+  - terminal:
+  - lazygit:
+    - lazygit
