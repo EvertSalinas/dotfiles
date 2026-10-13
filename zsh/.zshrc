@@ -29,6 +29,7 @@ export UID=$(id -u)
 export GID=$(id -g)
 export GPG_TTY=$(tty)
 export TERM=xterm-256color
+export RASPBERRY_SERVER='192.168.50.186'
 
 # migite vault root (default changed from ~/Documents/MasterVault/dev-log to
 # the portable ~/dev-log — this pins it back to the existing Obsidian vault)
@@ -102,6 +103,13 @@ if (( $+functions[zinit] )); then
   # syntax-highlighting must be loaded last among zle-touching plugins
   zinit light zsh-users/zsh-syntax-highlighting
   zinit cdreplay -q
+else
+  # zinit not installed: fall back to system-packaged plugins (pacman)
+  for _plugin in zsh-autosuggestions/zsh-autosuggestions.zsh \
+                 zsh-syntax-highlighting/zsh-syntax-highlighting.zsh; do
+    [[ -r /usr/share/zsh/plugins/$_plugin ]] && source /usr/share/zsh/plugins/$_plugin
+  done
+  unset _plugin
 fi
 
 if [ -f ~/.git-completion.bash ]; then
@@ -170,14 +178,13 @@ alias kcontextint="kubectl config use-context integration-002-cluster"
 alias kcontextprod="kubectl config use-context prod-use1-001-cluster"
 alias kcontextcanprod="kubectl config use-context can-prod-001-cluster"
 
-# --- AI agents ---
-alias claudio="claude"
-
 # --- Media ---
 if (( $+commands[ampcli] )); then
   alias qobuz="ampcli -Q"
   alias spotify="ampcli -S"
 fi
+
+# --- Personal Device access ---
 
 # ============================================================
 # Tool hooks (keep last)
